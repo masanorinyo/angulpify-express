@@ -10,12 +10,11 @@ global.config = {
       assets: [SRC_FOLDER + '/assets/**/*', '!' + SRC_FOLDER + '/assets/images/**/*'],
       images: SRC_FOLDER + '/assets/images/**/*',
       scripts: SRC_FOLDER + '/{app,components}/**/**/*.coffee',
-      scriptsGlob: SRC_FOLDER + '/app/app.coffee',
-      vendors: 'client/vendors',
+      scriptsGlob: './' + SRC_FOLDER + '/app/app.coffee',
+      vendors: SRC_FOLDER + '/vendors',
       stylesGlob: SRC_FOLDER + '/app/app.scss',
       templates: SRC_FOLDER + '/{app,components}/**/**/*.jade',
-      templatesHTML: SRC_FOLDER + '/{app,components}/**/**/*.html',
-      templatesCompiled: TMP_FOLDER
+      templatesHTML: SRC_FOLDER + '/{app,components}/**/**/*.html'
     },
     dest: {
       build: {

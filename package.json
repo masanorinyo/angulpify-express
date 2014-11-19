@@ -81,5 +81,28 @@
     "test": "grunt test",
     "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
   },
-  "private": true
+  "private": true,
+  "browserify": {
+    "transform": [
+      "coffeeify",
+      "browserify-shim",
+      "deamdify"
+    ],
+    "extensions": [
+      ".coffee"
+    ]
+  },
+  "browser": {
+    "modernizr":"./client/src/vendors/modernizr/modernizr.js",
+    "$":"./client/src/vendors/jquery/dist/jquery.js",
+    "angular":"./client/src/vendors/angular/angular.js",
+    "lodash":"./client/src/vendors/lodash/dist/lodash.compat.js",
+    "socket":"./client/src/vendors/angular-socket-io/socket.js",
+    "angular-ui-router":"./client/src/vendors/angular-ui-router/release/angular-ui-router.js",
+    "angular-animate":"./client/src/vendors/angular-animate/angular-animate.js",
+    "angular-cookies":"./client/src/vendors/angular-cookies/angular-cookies.js",
+    "angular-touch":"./client/src/vendors/angular-touch/angular-touch.js",
+    "angular-sanitize":"./client/src/vendors/angular-sanitize/angular-sanitize.js",
+    "angular-resource":"./client/src/vendors/angular-resource/angular-resource.js"
+  }
 }

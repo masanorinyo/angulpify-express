@@ -6,11 +6,15 @@ var gulp = require('gulp'),
 module.exports = gulp.task('default', function () {
   if (release) {
     runSequence(
-      "wiredep"
+      "clean",
+      "wiredep",
+      'inject'
     );
   } else {
     runSequence(
-      "wiredep"
+      "clean",
+      ["wiredep","template"],
+      "browserify"
     );
   }
 });
