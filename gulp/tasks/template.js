@@ -1,19 +1,26 @@
 'use strict';
 
 var gulp = require('gulp'),
-    jade = require('gulp-jade'),
-    templateCache = require('gulp-angular-templatecache'),
-    dest;
+    gulpif = require("gulp-if"),
+    jade = require("gulp-jade"),
+    minifyHTML = require('gulp-minify-html'),
+    ngHtml2Js = require('gulp-ng-html2js');
 
-if(release){
-  dest = BUILD_FOLDER;
-}else{
-  dest = TMP_FOLDER;
+
+function handleError(err) {
+  console.log(err.toString());
+  this.emit('end');
 }
 
-exports.module = gulp.task('template', function () {
-  gulp.src(config.paths.src.templates)
-    .pipe(jade())
-    .pipe(templateCache())
-    .pipe(gulp.dest(dest));
+module.exports = gulp.task('template', function () {
+  return gulp.src([config.paths.src.templates, config.paths.src.templatesHTML])
+    .pipe(gulpif(release,minifyHTML({
+      empty: true,
+      spare: true,
+      quotes: true
+    })))
+    .pipe(ngHtml2Js({
+      moduleName: MODULE_NAME
+    }))
+    .pipe(gulpif(release,gulp.dest(BUILD_FOLDER),gulp.dest(TMP_FOLDER)));
 });

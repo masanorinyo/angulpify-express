@@ -2,6 +2,7 @@ global.SRC_FOLDER = 'client/src';
 global.BUILD_FOLDER = 'client/build';
 global.TMP_FOLDER = '.tmp';
 global.SERVER_FOLDER = 'server';
+global.MODULE_NAME = "angulpifyExpressApp"
 
 global.config = {
   paths: {
@@ -13,8 +14,10 @@ global.config = {
       scriptsGlob: './' + SRC_FOLDER + '/app/app.coffee',
       vendors: SRC_FOLDER + '/vendors',
       stylesGlob: SRC_FOLDER + '/app/app.scss',
+      styles: SRC_FOLDER + '/{app,components}/**/**/*.scss',
       templates: SRC_FOLDER + '/{app,components}/**/**/*.jade',
-      templatesHTML: SRC_FOLDER + '/{app,components}/**/**/*.html'
+      templatesHTML: SRC_FOLDER + '/{app,components}/**/**/*.html',
+      templateJS: TMP_FOLDER+"/templates.js"
     },
     dest: {
       build: {

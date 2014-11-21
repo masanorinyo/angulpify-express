@@ -7,14 +7,17 @@ module.exports = gulp.task('default', function () {
   if (release) {
     runSequence(
       "clean",
-      "wiredep",
-      'inject'
+      ["wiredep","template"],
+      ["browserify"],
+      "inject"
     );
   } else {
     runSequence(
       "clean",
       ["wiredep","template"],
-      "browserify"
+      ["watchify","watch"],
+      "inject",
+      "serve"
     );
   }
 });

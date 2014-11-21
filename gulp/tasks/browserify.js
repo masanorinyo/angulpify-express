@@ -2,15 +2,13 @@
 
 var gulp = require('gulp'),
 		browserify = require('browserify'),
-		source = require('vinyl-source-stream'),
-		browserifyShim = require('browserify-shim'),
-		coffeeify = require('coffeeify');
+		source = require('vinyl-source-stream');
 
 module.exports = gulp.task('browserify', function () {
   return browserify({
       entries: [config.paths.src.scriptsGlob]
     })
     .bundle()
-    .pipe(source(config.filenames.release.scripts))
-    .pipe(gulp.dest(config.paths.dest.build.scripts));
+    .pipe(source(config.filenames.build.scripts,config.paths.src.templateJS))
+    .pipe(gulp.dest(config.paths.dest.build.scripts))
 });

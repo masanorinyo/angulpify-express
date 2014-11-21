@@ -6,23 +6,35 @@ var gulp = require('gulp'),
 		dest;
 
 if(release){
-	dest_css = config.paths.dest.release.styles+"/*.css";
-	dest_js = config.paths.dest.release.scripts+"/*.js";
+	dest_css = config.paths.dest.release.styles+"/bundle.css";
+	dest_js = config.paths.dest.release.scripts+"/bundle.js";
 	dest = BUILD_FOLDER;
 }else{
-	dest_css = config.paths.dest.build.styles+"/*.css";
-	dest_js = config.paths.dest.build.scripts+"/*.js";
+	dest_css = config.paths.dest.build.styles+"/bundle.css";
+	dest_js = config.paths.dest.build.scripts+"/bundle.js";
 	dest = SRC_FOLDER;
 }
 
 
 module.exports = gulp.task('inject', function () {
-  var target = gulp.src(config.paths.src.index);
-  // It's not necessary to read the files (will speed up things), we're only after their paths:
-  var sources = gulp.src([dest_css,dest_js], {read: false});
-
-  return target.pipe(inject(sources))
+  gulp.src(config.paths.src.index)
+    .pipe(inject(
+      gulp.src([dest_js,dest_css], {read: false}), {
+        transform: function (filepath) {
+          if (filepath.slice(-3) === '.js' || filepath.slice(-3) === '.css') {
+            return "<script src='libs.js'></script>"+
+                   "<script src='bundle.js'></script>";
+          }else{
+            return '<link rel="stylesheet" type="text/css" href="bundle.css">';
+          }
+          // Use the default transform as fallback:
+          return inject.transform.apply(inject.transform, arguments);
+        }
+      }
+    ))
     .pipe(gulp.dest(dest));
+
+
 });
 
 
