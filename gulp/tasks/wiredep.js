@@ -15,9 +15,9 @@ module.exports = gulp.task('wiredep', function () {
   
   // if it is for release, change the destination
   if(release){
-  	dest = config.paths.dest.release.scripts;
+  	dest = config.paths.dest.release.vendors;
   }else{
-  	dest = config.paths.dest.build.scripts;
+  	dest = config.paths.dest.build.vendors;
   }
 
   return gulp.src(bower.js)

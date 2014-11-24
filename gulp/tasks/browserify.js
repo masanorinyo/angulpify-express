@@ -9,6 +9,6 @@ module.exports = gulp.task('browserify', function () {
       entries: [config.paths.src.scriptsGlob]
     })
     .bundle()
-    .pipe(source(config.filenames.build.scripts,config.paths.src.templateJS))
-    .pipe(gulp.dest(config.paths.dest.build.scripts))
+    .pipe(source(config.filenames.build.scripts,config.paths.src.templatesJS))
+    .pipe(gulp.dest(config.paths.dest.release.scripts))
 });

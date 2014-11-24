@@ -35,22 +35,22 @@ module.exports = gulp.task('serve', function () {
     'client/src',
     '.tmp'
   ], [
-    '.tmp/{app,components}/**/*.css',
-    'client/src/assets/images/**/*',
     'client/src/*.html',
-    'client/src/{app,components}/**/*.html',
-    'client/src/{app,components}/**/*.js'
+    '.tmp/{app,components}/**/*.css',
+    '.tmp/{app,components}/**/*.html',
+    '.tmp/*.js',
+    '.tmp/assets/images/**/*'
   ]);
 });
 
-module.exports = gulp.task('serve:dist',  function () {
-  browserSyncInit('client/dist');
+module.exports = gulp.task('serve:build',  function () {
+  browserSyncInit('client/build');
 });
 
 module.exports = gulp.task('serve:e2e', function () {
   browserSyncInit(['client/src', '.tmp'], null, []);
 });
 
-module.exports = gulp.task('serve:e2e-dist', function () {
-  browserSyncInit('client/dist', null, []);
+module.exports = gulp.task('serve:e2e-build', function () {
+  browserSyncInit('client/build', null, []);
 });

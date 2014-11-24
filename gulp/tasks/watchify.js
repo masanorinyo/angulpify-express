@@ -17,10 +17,9 @@ module.exports = gulp.task('watchify', function () {
   function rebundle() {
     gutil.log(  chalk.green('[Browserify] : '+chalk.bold('Compiled')) );
     return bundler.bundle({ debug: true })
-      .pipe(source(config.filenames.build.scripts,config.paths.src.templateJS))
+      .pipe(source(config.filenames.build.scripts))
       .pipe(gulp.dest(config.paths.dest.build.scripts))
       .pipe(reload({stream:true}));
-;
   }
 
   return rebundle();

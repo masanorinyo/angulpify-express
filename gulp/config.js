@@ -17,12 +17,14 @@ global.config = {
       styles: SRC_FOLDER + '/{app,components}/**/**/*.scss',
       templates: SRC_FOLDER + '/{app,components}/**/**/*.jade',
       templatesHTML: SRC_FOLDER + '/{app,components}/**/**/*.html',
-      templateJS: TMP_FOLDER+"/templates.js"
+      templatesJS: SRC_FOLDER + "/templates.js"
     },
     dest: {
       build: {
         styles: TMP_FOLDER,
-        scripts: TMP_FOLDER,
+        scripts: TMP_FOLDER+"/app",
+        vendors: TMP_FOLDER,
+        html: TMP_FOLDER,
         images: TMP_FOLDER + '/assets/images',
         assets: TMP_FOLDER + '/assets',
         index: TMP_FOLDER,
@@ -30,7 +32,8 @@ global.config = {
       },
       release: {
         styles: BUILD_FOLDER,
-        scripts: BUILD_FOLDER,
+        vendors: BUILD_FOLDER,
+        scripts: BUILD_FOLDER + "/app",
         images: BUILD_FOLDER + '/assets/images',
         assets: BUILD_FOLDER + '/assets',
         index: BUILD_FOLDER,
@@ -41,11 +44,13 @@ global.config = {
   filenames: {
     build: {
       styles: 'bundle.css',
-      scripts: 'bundle.js'
+      scripts: 'bundle.js',
+      vendors: "libs.js"
     },
     release: {
       styles: 'bundle.min.css',
-      scripts: 'bundle.min.js'
+      scripts: 'bundle.min.js',
+      vendors: "libs.js"
     }
   },
   ports: {

@@ -14,7 +14,7 @@ module.exports = gulp.task('default', function () {
   } else {
     runSequence(
       "clean",
-      ["wiredep","template"],
+      ["wiredep","html"],
       ["watchify","watch"],
       "inject",
       "serve"

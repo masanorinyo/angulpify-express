@@ -1,29 +1,33 @@
+'use strict';
 var gulp = require('gulp'),
 		gulpif = require('gulp-if'),
 		inject = require("gulp-inject"),
 		dest_css,
 		dest_js,
+    dest_vendor,
 		dest;
 
 if(release){
 	dest_css = config.paths.dest.release.styles+"/bundle.css";
 	dest_js = config.paths.dest.release.scripts+"/bundle.js";
+  dest_vendor = config.paths.dest.release.scripts+"/libs.js";
 	dest = BUILD_FOLDER;
 }else{
 	dest_css = config.paths.dest.build.styles+"/bundle.css";
 	dest_js = config.paths.dest.build.scripts+"/bundle.js";
+  dest_vendor = config.paths.dest.build.scripts+"/libs.js";
 	dest = SRC_FOLDER;
 }
 
-
-module.exports = gulp.task('inject', function () {
-  gulp.src(config.paths.src.index)
+ 
+ module.exports = gulp.task('inject', function () {
+   gulp.src(config.paths.src.index)
     .pipe(inject(
       gulp.src([dest_js,dest_css], {read: false}), {
         transform: function (filepath) {
           if (filepath.slice(-3) === '.js' || filepath.slice(-3) === '.css') {
-            return "<script src='libs.js'></script>"+
-                   "<script src='bundle.js'></script>";
+            return  "<script src='libs.js'></script>"+
+                    "<script src='app/bundle.js'></script>";
           }else{
             return '<link rel="stylesheet" type="text/css" href="bundle.css">';
           }
@@ -33,9 +37,7 @@ module.exports = gulp.task('inject', function () {
       }
     ))
     .pipe(gulp.dest(dest));
-
-
-});
+ });
 
 
 

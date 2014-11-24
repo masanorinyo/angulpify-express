@@ -8,4 +8,6 @@ angular.module('angulpifyExpressApp',[
   "ngTouch"
   "ngSanitize"
   "ngResource"
+  require('../templates').name
 ])
+
