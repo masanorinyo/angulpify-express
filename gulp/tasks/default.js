@@ -8,14 +8,14 @@ module.exports = gulp.task('default', function () {
     runSequence(
       "clean",
       ["wiredep","template"],
-      ["browserify"],
-      "inject"
+      ["browserify","styles","images","misc",'fonts'],      
+      "inject:rev" 
     );
   } else {
     runSequence(
       "clean",
       ["wiredep","html"],
-      ["watchify","watch"],
+      ["watchify","watch","styles","images",'fonts'],
       "inject",
       "serve"
     );

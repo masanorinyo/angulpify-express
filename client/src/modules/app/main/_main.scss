@@ -1,0 +1,8 @@
+header{
+	@include linear-gradient(to bottom, blue,white);
+}
+
+
+main {
+	@include linear-gradient(to top, red,orange);
+}

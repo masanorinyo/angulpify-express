@@ -2,6 +2,16 @@
 var gulp = require('gulp'),
 		gulpif = require('gulp-if'),
 		inject = require("gulp-inject"),
+    filter = require("gulp-filter"),
+    useref = require("gulp-useref"),
+    ngAnnotate = require("gulp-ng-annotate"),
+    rev = require("gulp-rev"),
+    revReplace = require("gulp-rev-replace"),
+    csso = require("gulp-csso"),
+    uglify = require("gulp-uglify"),
+    uglifySaveLicense = require("uglify-save-license"),
+    minifyHtml = require("gulp-minify-html"),
+    size = require("gulp-size"),
 		dest_css,
 		dest_js,
     dest_css_name,
@@ -35,7 +45,7 @@ if(release){
             return  "<script src='libs.js'></script>"+
                     "<script src='modules/"+dest_js_name+"'></script>";
           }else{
-            return "<link rel='stylesheet' type='text/css' href='modules/"+dest_js_name+"'>";
+            return "<link rel='stylesheet' type='text/css' href='modules/"+dest_css_name+"'>";
           }
           // Use the default transform as fallback:
           return inject.transform.apply(inject.transform, arguments);
@@ -45,41 +55,33 @@ if(release){
     .pipe(gulp.dest(dest));
  });
 
+ module.exports = gulp.task('inject:rev', function () {
+  var htmlFilter = filter('*.html'),
+      jsFilter = filter('*.js'),
+      cssFilter = filter('*.css'),
+      assets;
 
+  return gulp.src(config.paths.build.index)
+    .pipe(assets = useref.assets())
+    .pipe(rev())
+    .pipe(jsFilter)
+    .pipe(ngAnnotate())
+    .pipe(uglify({preserveComments: uglifySaveLicense}))
+    .pipe(jsFilter.restore())
+    .pipe(cssFilter)
+    .pipe(csso())
+    .pipe(cssFilter.restore())
+    .pipe(assets.restore())
+    .pipe(useref())
+    .pipe(revReplace())
+    .pipe(htmlFilter)
+    .pipe(minifyHtml({
+      empty: true,
+      spare: true,
+      quotes: true
+    }))
+    .pipe(htmlFilter.restore())
+    .pipe(gulp.dest(BUILD_FOLDER))
+    .pipe(size());
+ });
 
-// gulp.task('html', ['styles', 'scripts', 'partials'], function () {
-//   var htmlFilter = $.filter('*.html');
-//   var jsFilter = $.filter('**/*.js');
-//   var cssFilter = $.filter('**/*.css');
-//   var assets;
-
-//   return gulp.src('src/*.html')
-//     .pipe($.inject(gulp.src('.tmp/{app,components}/**/*.js'), {
-//       read: false,
-//       starttag: '<!-- inject:partials -->',
-//       addRootSlash: false,
-//       addPrefix: '../'
-//     }))
-//     .pipe(assets = $.useref.assets())
-//     .pipe($.rev())
-//     .pipe(jsFilter)
-//     .pipe($.ngAnnotate())
-//     .pipe($.uglify({preserveComments: $.uglifySaveLicense}))
-//     .pipe(jsFilter.restore())
-//     .pipe(cssFilter)
-//     .pipe($.replace('bower_components/bootstrap-sass-official/assets/fonts/bootstrap','fonts'))
-//     .pipe($.csso())
-//     .pipe(cssFilter.restore())
-//     .pipe(assets.restore())
-//     .pipe($.useref())
-//     .pipe($.revReplace())
-//     .pipe(htmlFilter)
-//     .pipe($.minifyHtml({
-//       empty: true,
-//       spare: true,
-//       quotes: true
-//     }))
-//     .pipe(htmlFilter.restore())
-//     .pipe(gulp.dest('dist'))
-//     .pipe($.size());
-// });

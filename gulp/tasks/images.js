@@ -1,15 +1,21 @@
 'use strict';
 var gulp = require('gulp'),
+    imagemin = require('gulp-imagemin'),
+    gulpif = require('gulp-if'),
+    cache = require('gulp-cache'),
     size = require('gulp-size');
 
 
-gulp.task('images', function () {
-  return gulp.src('src/assets/images/**/*')
-    .pipe($.cache($.imagemin({
+module.exports = gulp.task('images', function () {
+  return gulp.src(config.paths.src.images)
+    .pipe(imagemin({
       optimizationLevel: 3,
       progressive: true,
       interlaced: true
-    })))
-    .pipe(gulp.dest('dist/assets/images'))
-    .pipe($.size());
+    }))
+    .pipe(gulpif(release,
+      gulp.dest(config.paths.dest.release.images),
+      gulp.dest(config.paths.dest.build.images)
+    ))
+    .pipe(size());
 });
