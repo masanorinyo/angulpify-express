@@ -36,8 +36,8 @@ module.exports = gulp.task('serve', function () {
     '.tmp'
   ], [
     'client/src/*.html',
-    '.tmp/{app,components}/**/*.css',
-    '.tmp/{app,components}/**/*.html',
+    '.tmp/modules/{app,components}/**/*.css',
+    '.tmp/modules/{app,components}/**/*.html',
     '.tmp/*.js',
     '.tmp/assets/images/**/*'
   ]);

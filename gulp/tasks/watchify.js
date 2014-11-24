@@ -9,7 +9,8 @@ var gulp = require('gulp'),
 
 module.exports = gulp.task('watchify', function () {
   var bundler = watchify({
-    entries: [config.paths.src.scriptsGlob]
+    entries: [config.paths.src.module],
+    extensions: ['.coffee']
   });
 
   bundler.on('update', rebundle);

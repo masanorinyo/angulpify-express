@@ -4,17 +4,23 @@ var gulp = require('gulp'),
 		inject = require("gulp-inject"),
 		dest_css,
 		dest_js,
+    dest_css_name,
+    dest_js_name,
     dest_vendor,
 		dest;
 
 if(release){
-	dest_css = config.paths.dest.release.styles+"/bundle.css";
-	dest_js = config.paths.dest.release.scripts+"/bundle.js";
+	dest_css_name = config.filenames.release.styles;
+  dest_css = config.paths.dest.release.styles+"/"+dest_css_name;
+  dest_js_name = config.filenames.release.scripts;
+	dest_js = config.paths.dest.release.scripts+"/"+dest_js_name;
   dest_vendor = config.paths.dest.release.scripts+"/libs.js";
 	dest = BUILD_FOLDER;
 }else{
-	dest_css = config.paths.dest.build.styles+"/bundle.css";
-	dest_js = config.paths.dest.build.scripts+"/bundle.js";
+  dest_css_name = config.filenames.build.styles;
+	dest_css = config.paths.dest.build.styles+"/"+dest_css_name;
+	dest_js_name = config.filenames.build.scripts;
+  dest_js = config.paths.dest.build.scripts+"/"+dest_js_name;
   dest_vendor = config.paths.dest.build.scripts+"/libs.js";
 	dest = SRC_FOLDER;
 }
@@ -27,9 +33,9 @@ if(release){
         transform: function (filepath) {
           if (filepath.slice(-3) === '.js' || filepath.slice(-3) === '.css') {
             return  "<script src='libs.js'></script>"+
-                    "<script src='app/bundle.js'></script>";
+                    "<script src='modules/"+dest_js_name+"'></script>";
           }else{
-            return '<link rel="stylesheet" type="text/css" href="bundle.css">';
+            return "<link rel='stylesheet' type='text/css' href='modules/"+dest_js_name+"'>";
           }
           // Use the default transform as fallback:
           return inject.transform.apply(inject.transform, arguments);

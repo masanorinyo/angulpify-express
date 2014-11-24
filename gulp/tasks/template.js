@@ -13,25 +13,11 @@ function handleError(err) {
   this.emit('end');
 }
 
-// module.exports = gulp.task('template', function () {
-//   return gulp.src([config.paths.src.templates])
-//     .pipe(jade())
-//     .pipe(gulpif(release,minifyHTML({
-//       empty: true,
-//       spare: true,
-//       quotes: true
-//     })))
-//     .pipe(ngHtml2Js({
-//       moduleName: MODULE_NAME
-//     }))
-//     .pipe(gulp.dest(TMP_FOLDER));
-// });
-
 module.exports = gulp.task('template', function () {
   return gulp.src([config.paths.src.templates])
     .pipe(jade({ pretty: true }).on('error', handleError))
     .pipe(minifyHTML({empty: true, spare: true, quotes: true}))
-    .pipe(templateCache({ standalone: true }))
+    .pipe(templateCache({standalone:true,root:"modules"}))
     .pipe(header('module.exports = '))
-    .pipe(gulp.dest(BUILD_FOLDER));
+    .pipe(gulp.dest(TMP_FOLDER));
 });

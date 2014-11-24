@@ -10,34 +10,35 @@ global.config = {
       index: SRC_FOLDER + '/index.html',
       assets: [SRC_FOLDER + '/assets/**/*', '!' + SRC_FOLDER + '/assets/images/**/*'],
       images: SRC_FOLDER + '/assets/images/**/*',
-      scripts: SRC_FOLDER + '/{app,components}/**/**/*.coffee',
-      scriptsGlob: './' + SRC_FOLDER + '/app/app.coffee',
+      scripts: SRC_FOLDER + '/modules/{app,components}/**/*.coffee',
+      module: './' + SRC_FOLDER + '/modules/index.coffee',
       vendors: SRC_FOLDER + '/vendors',
-      stylesGlob: SRC_FOLDER + '/app/app.scss',
-      styles: SRC_FOLDER + '/{app,components}/**/**/*.scss',
-      templates: SRC_FOLDER + '/{app,components}/**/**/*.jade',
-      templatesHTML: SRC_FOLDER + '/{app,components}/**/**/*.html',
-      templatesJS: SRC_FOLDER + "/templates.js"
+      stylesGlob: SRC_FOLDER + '/modules/index.scss',
+      styles: SRC_FOLDER + '/modules/{app,components}/**/**/*.scss',
+      templates: SRC_FOLDER + '/modules/{app,components}/**/**/*.jade',
+      templatesHTML: SRC_FOLDER + '/modules/{app,components}/**/**/*.html',
+      templatesJS: SRC_FOLDER + "/modules/templates.js"
     },
     dest: {
       build: {
-        styles: TMP_FOLDER,
-        scripts: TMP_FOLDER+"/app",
+        index: TMP_FOLDER,
+        server: SERVER_FOLDER,
         vendors: TMP_FOLDER,
         html: TMP_FOLDER,
+        styles: TMP_FOLDER + "/modules",
+        scripts: TMP_FOLDER+"/modules",
         images: TMP_FOLDER + '/assets/images',
-        assets: TMP_FOLDER + '/assets',
-        index: TMP_FOLDER,
-        server: SERVER_FOLDER
+        assets: TMP_FOLDER + '/assets'
       },
       release: {
-        styles: BUILD_FOLDER,
-        vendors: BUILD_FOLDER,
-        scripts: BUILD_FOLDER + "/app",
-        images: BUILD_FOLDER + '/assets/images',
-        assets: BUILD_FOLDER + '/assets',
         index: BUILD_FOLDER,
-        server: SERVER_FOLDER
+        server: SERVER_FOLDER,
+        vendors: BUILD_FOLDER,
+        template: SRC_FOLDER+"/modules",
+        styles: BUILD_FOLDER + "/modules",
+        scripts: BUILD_FOLDER + "/modules",
+        images: BUILD_FOLDER + '/assets/images',
+        assets: BUILD_FOLDER + '/assets'
       }
     }
   },

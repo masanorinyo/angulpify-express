@@ -5,11 +5,14 @@ var gulp = require('gulp'),
     changed = require('gulp-changed'),
     cached = require('gulp-cached'),
     gulpif = require('gulp-if'),
+    gutil = require('gulp-util'),
+    chalk = require('chalk'),
     jadeInheritance = require('gulp-jade-inheritance'),
     filter = require('gulp-filter');
 
 
 module.exports = gulp.task('html', function() {
+  gutil.log(  chalk.green('[html] : '+chalk.bold('Compiled')) );
   return gulp.src(config.paths.src.templates)
     //only pass unchanged *main* files and *all* the partials
     .pipe(changed(config.paths.src.templates, {extension: '.html'}))
