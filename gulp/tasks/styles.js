@@ -7,6 +7,8 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     prefix = require('gulp-autoprefixer'),
     sourcemaps = require('gulp-sourcemaps'),
+    csso = require('gulp-csso'),
+    size = require('gulp-size'),
     dest,
     css_dest,
     css_dest_name,
@@ -35,5 +37,7 @@ module.exports = gulp.task('styles', function(){
     .pipe(gulpif(!release,sourcemaps.write()))
     .pipe(gulpif(release, prefix("last 1 version", "> 1%", "ie 8", "ie 7")))
     .pipe(rename(css_dest_name))
-    .pipe(gulp.dest(dest));
+    .pipe(gulpif(release,csso()))
+    .pipe(gulp.dest(dest))
+    .pipe(size());
 });

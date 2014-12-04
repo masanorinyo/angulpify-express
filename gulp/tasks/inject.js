@@ -2,15 +2,6 @@
 var gulp = require('gulp'),
 		gulpif = require('gulp-if'),
 		inject = require("gulp-inject"),
-    filter = require("gulp-filter"),
-    useref = require("gulp-useref"),
-    ngAnnotate = require("gulp-ng-annotate"),
-    rev = require("gulp-rev"),
-    revReplace = require("gulp-rev-replace"),
-    csso = require("gulp-csso"),
-    uglify = require("gulp-uglify"),
-    uglifySaveLicense = require("uglify-save-license"),
-    minifyHtml = require("gulp-minify-html"),
     size = require("gulp-size"),
 		dest_css,
 		dest_js,
@@ -55,33 +46,5 @@ if(release){
     .pipe(gulp.dest(dest));
  });
 
- module.exports = gulp.task('inject:rev', function () {
-  var htmlFilter = filter('*.html'),
-      jsFilter = filter('*.js'),
-      cssFilter = filter('*.css'),
-      assets;
-
-  return gulp.src(config.paths.build.index)
-    .pipe(assets = useref.assets())
-    .pipe(rev())
-    .pipe(jsFilter)
-    .pipe(ngAnnotate())
-    .pipe(uglify({preserveComments: uglifySaveLicense}))
-    .pipe(jsFilter.restore())
-    .pipe(cssFilter)
-    .pipe(csso())
-    .pipe(cssFilter.restore())
-    .pipe(assets.restore())
-    .pipe(useref())
-    .pipe(revReplace())
-    .pipe(htmlFilter)
-    .pipe(minifyHtml({
-      empty: true,
-      spare: true,
-      quotes: true
-    }))
-    .pipe(htmlFilter.restore())
-    .pipe(gulp.dest(BUILD_FOLDER))
-    .pipe(size());
- });
+ 
 

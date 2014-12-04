@@ -40,9 +40,9 @@ global.config = {
         index: BUILD_FOLDER,
         server: SERVER_FOLDER,
         vendors: BUILD_FOLDER,
-        template: SRC_FOLDER+"/modules",
-        styles: BUILD_FOLDER + "/modules",
-        scripts: BUILD_FOLDER + "/modules",
+        template: SRC_FOLDER,
+        styles: BUILD_FOLDER ,
+        scripts: BUILD_FOLDER,
         images: BUILD_FOLDER + '/assets/images',
         fonts: BUILD_FOLDER + '/assets/fonts',
         assets: BUILD_FOLDER + '/assets'

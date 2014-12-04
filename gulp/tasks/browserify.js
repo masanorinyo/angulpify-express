@@ -4,7 +4,11 @@ var gulp = require('gulp'),
 		browserify = require('browserify'),
     browserifyShim = require('browserify-shim'),
     coffeeify = require('coffeeify'),
-		source = require('vinyl-source-stream');
+    uglify = require("gulp-uglify"),
+		source = require('vinyl-source-stream'),
+    buffer = require('vinyl-buffer'),
+    ngAnnotate = require("gulp-ng-annotate");
+
 
 module.exports = gulp.task('browserify', function () {
   return browserify({
@@ -13,5 +17,9 @@ module.exports = gulp.task('browserify', function () {
     })
     .bundle()
     .pipe(source(config.filenames.release.scripts))
-    .pipe(gulp.dest(config.paths.dest.release.scripts))
+    .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
+    .pipe(ngAnnotate())
+    .pipe(uglify())
+    .pipe(gulp.dest(config.paths.dest.release.scripts));
+
 });

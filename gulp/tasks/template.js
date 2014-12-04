@@ -5,7 +5,8 @@ var gulp = require('gulp'),
     jade = require("gulp-jade"),
     header = require("gulp-header"),
     minifyHTML = require('gulp-minify-html'),
-    templateCache = require('gulp-angular-templatecache');
+    templateCache = require('gulp-angular-templatecache'),
+    size = require('gulp-size');
 
 
 function handleError(err) {
@@ -19,5 +20,6 @@ module.exports = gulp.task('template', function () {
     .pipe(minifyHTML({empty: true, spare: true, quotes: true}))
     .pipe(templateCache({standalone:true,root:"modules"}))
     .pipe(header('module.exports = '))
-    .pipe(gulp.dest(TMP_FOLDER));
+    .pipe(gulp.dest(TMP_FOLDER))
+    .pipe(size());
 });
